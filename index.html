@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PhaserJS #5</title>
+  <link rel="shortcut icon" type="image/png" href="images/ico_full.png"/>
+  <link rel="stylesheet" href="stylesheet/prism.css">
+  <link rel="stylesheet" href="stylesheet/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+  <!-- Introduction -->
+  <div class="banner" style="display: block !important; background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://d2skuhm0vrry40.cloudfront.net/2018/articles/2018-08-29-13-52/nintendo-takes-down-11-year-old-pokemon-fangame-kit-1535547168922.jpg/EG11/thumbnail/750x422/format/jpg/quality/60');">
+    <div id="class-languages">
+      <i class="fab fa-html5 mr-1" style="color: #f84820"></i>
+      <i class="fab fa-css3-alt mr-1" style="color: #1970b5"></i>
+      <i class="fab fa-js-square mr-1" style="color: #FFE01B"></i>
+    </div>
+    <div class="container">
+      <div class="main">
+        <img src="images/logo.png" alt="">
+        <div class="class-title">
+          <h1>PhaserJS - Partie 5</h1>
+        </div>
+      </div>
+      <p>Durant cette session, on va plus se concentrer sur la création de jeux vidéos dans le language JavaScript. Pour ce faire, on se servira de la librarie <b>Phaser</b>.</p>
+      <a class="btn btn-primary tl-button" href="#challenge" role="button">Commencer !</a>
+    </div>
+  </div>
+
+  <div class="container" id="challenge">
+
+    <div class="accordion" id="accordionExample">
+
+      <!-- Étape 1 -->
+      <div class="card">
+        <div class="card-header" id="heading1">
+          <h2 class="mb-0">
+            <button class="btn btn-link done task" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+              Étape 1 - Défis à compléter avant
+            </button>
+          </h2>
+        </div>
+        <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordionExample">
+          <div class="card-body">
+            <p>Avant d'entamer ce défi, assure toi d'avoir déjà fait ceux ci:</p>
+            <ul>
+              <li><a href="https://techieslab.github.io/PhaserJS-Introduction/">PhaserJS - Personnage</a></li>
+              <li><a href="https://techieslab.github.io/PhaserJS-Platforms/">PhaserJS - Plateformes</a></li>
+              <li><a href="https://techieslab.github.io/PhaserJS-GagnerPerdre/">PhaserJS - Gagner et Perdre</a></li>
+              <li><a href="https://techieslab.github.io/PhaserJS-MapFacile/">PhaserJS - Map Facile</a></li>
+            </ul>
+            <p>Ensuite, assure-toi de te munir d'une grande motivation et soif d'apprendre!</p>
+            <p>Aussi, assure-toi que tu sois bien connecté à ton compte <a href="https://repl.it">Repl.It</a>, et que tu aies ton projet de la fois passée.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 2 -->
+      <div class="card">
+        <div class="card-header" id="heading2">
+          <h2 class="mb-0">
+            <button class="btn btn-link task" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+              Étape 2 - Des points
+            </button>
+          </h2>
+        </div>
+        <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordionExample">
+          <div class="card-body">
+            <p>On va maintenant créer un système de points. Crée un objet que tu devra collectionner sur le chemin pour gagner des points. Cela peuvent être des étoiles, des bonbons, des gateaux ou ce que tu veux!</p>
+
+            <p>Lorsque tu as créé ton objet qui vaut des points, <code>load</code> le dans ton programme.</p>
+
+            <p>On va alors le faire apparaître dans la map aux différents endroits. Dans ta constante <code>map</code>, tu peux ajouter des "a" pour les objets qui donnent des points.</p>
+
+            <p>Dans la fonction <code>create</code>, tu dois alors créer un groupe statique pour les objects qui valent des points. Chez moi c'est des étoiles, donc j'appelle le groupe "stars".</p>
+
+            <pre><code class="language-js">
+              this.stars = this.physics.add.staticGroup();
+            </code></pre>
+
+            <p>Dans la fonction <code>create</code>, dans la boucle <code>for</code>, on va alors ajouter un <code>else if</code> en plus, pour vérifier si la lettre est égale à "a".</p>
+
+            <pre><code class="language-js">
+              } else if (c === 'a') {
+                this.stars.create(X, Y+10, "star");
+              }
+            </code></pre>
+
+            <p>Maintenant tes étoiles apparaîssent sur l'écran. Mais rien ne se passe lorsqu'on les touche...</p>
+
+            <p>Comme pour la pièce qui nous fait gagner, on va donc ajouter un <code>overlap</code>.</p>
+
+            <pre><code class="language-js">
+              this.physics.add.overlap(this.player, this.stars, function(player, star) {
+                
+              }, null, this);
+            </code></pre>
+
+            <p>Pour l'instant, fais en sorte que l'étoile se détruise lorsque tu la touches!</p>
+
+            <p>On aimerait bien recevoir des points lorsqu'on détruit une étoile. Pour ce faire, tout au début de la fonction <code>create</code>, on va <b>initialiser</b> une variable <code>points</code> à 0.</p>
+
+            <pre><code class="language-js">
+              this.points = 0;
+            </code></pre>
+
+            <p>À chaque toucher d'étoile, en plus de détruire l'étoile, on va augementer les points de 1. C'est très facile!</p>
+
+            <pre><code class="language-js">
+              this.points = this.points + 1;
+            </code></pre>
+
+            <p>Il existe d'autres manières d'écrire la même chose. Les 3 écritures suivantes sont synonymes:</p>
+
+            <pre><code class="language-js">
+              this.points = this.points + 1;
+              this.points += 1;
+              this.points++;
+            </code></pre>
+
+            <p>Quelle manière préféres-tu? Et pourquoi?</p>
+
+            <p>Maintenant on doit montrer le score sur l'écran. Pour ce faire, on va simplement afficher un texte en haut à gauche de l'écran.</p>
+
+            <pre><code class="language-js">
+              this.scoreText = this.add.text(0, 0, "Mon Texte");
+            </code></pre>
+
+            <p>Tu verra surement que le texte bouge lorsque tu bouges. On doit en effet fixer le texte à l'écran. Pour ce faire, on ajoute un <code>scrollFactor</code>.</p>
+
+            <pre><code class="language-js">
+              this.scoreText = this.add.text(/* ... */).setScrollFactor(0);
+            </code></pre>
+
+            <p>On doit alors adapter le texte affiché. Facile! On veut afficher "Score: " suivi de notre score.</p>
+
+            <pre><code class="language-js">
+              "Score: " + this.points
+            </code></pre>
+
+            <p>Chaque fois qu'on attrape une étoile, on doit re-adapter ce texte. Sinon il ne se met que au début et restera à 0 pendant toute la partie...</p>
+
+            <p>Lorsque tu touches une étoile, il te suffit de faire ce code:</p>
+
+            <pre><code class="language-js">
+              this.scoreText.setText(/* Nouveau Texte */);
+            </code></pre>
+
+            <p>Et voilà, ton score se met à jour lorsque tu attrapes des pièces.</p>
+
+            <p><b>Challenge: </b> Ajoute une touche "triche". Par example, lorsque tu appuies sur la touche "Y", tu reçois 100 points gratuits!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 3 -->
+      <div class="card">
+        <div class="card-header" id="heading3">
+          <h2 class="mb-0">
+            <button class="btn btn-link task" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+              Étape 3 - Des vies
+            </button>
+          </h2>
+        </div>
+        <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionExample">
+          <div class="card-body">
+            <p>Une chose est d'arriver à avoir le plus de points possibles, une autre est de réussir le niveau sans mourir trop souvent.</p>
+
+            <p>Ajoute une variable "lives" au début du code, au même endroit que tu crées la variable <code>this.score</code>.</p>
+
+            <pre><code class="language-js">
+              this.lives = 3;
+            </code></pre>
+
+            <p>Ensuite, on veut afficher le nombre de variables en dessous du nombre de points.</p>
+
+            <pre><code class="language-js">
+              this.livesText = this.add.text(0, 50, /* Nombre de vies */);
+            </code></pre>
+
+            <p>Lorsque tu meurs (Tomber ou toucher des piques), tu peux alors changer le nombre de vies, et changer le texte, comme on avait fait avant.</p>
+
+            <p>Lorsque tu n'as plus de vies, on doit arrêter le jeu. Pour ce faire, on veut afficher un grand texte "GAME OVER" au milieu de l'écran, et arrêter le jeu. Ceci ressemble fort au code qu'on a fait lorsqu'on gagne le jeu. Pour rappel, voici le code pour gagner:</p>
+
+            <pre><code class="language-js">
+              let victoryText = this.add.text(0, 0, "VICTORY", {
+                color: "#d53636",
+                fontSize: "70px"
+              }).setScrollFactor(0);
+              Phaser.Display.Align.In.Center(victoryText, this.add.zone(270, 180, 270, 180));
+              this.physics.pause();
+            </code></pre>
+
+            <p>Tout ceci doit bien sûr se placer dans une condition qui vérifie si on a encore des vies restantes ou non.</p>
+
+            <pre><code class="language-js">
+              if(this.lives == 0) {
+                // Arreter le jeu
+              }
+            </code></pre>
+
+            <p>Adapte ce code pour qu'il relfète une perte plutôt qu'une victoire.</p>
+
+            <p><b>CHALLENGE: </b>Plutôt que d'afficher en texte le nombre de vies, affiche le nombre de coeurs en dessin. Dessine 3 coeurs si tu as 3 vies, etc. Pour ce faire, tu dois importer une image de coeur, et les dessiner aux bons endroits.</p>
+          </div>
+        </div>
+      </div>
+
+      
+    </div> 
+  </div>
+
+
+
+<div class="footer">
+  <div class="footer-links">
+    <a href="https://techieslab.be/"><i class="fas fa-globe"></i></i></a>
+    <a href="https://www.facebook.com/TechiesLabBrussels"><i class="fab fa-facebook"></i></a>
+    <a href="https://twitter.com/TechiesLab"><i class="fab fa-twitter"></i></a>
+  </div>
+  <div class="footer-copyright">
+    <a href="https://openclassrooms.com/fr/courses/1603881-apprenez-a-creer-votre-site-web-avec-html5-et-css3/3298561-faites-votre-mise-en-page-avec-flexbox#/id/r-3298711" rel="noopener noreferrer" target="_blank" class="alert-link copyright">
+      <i class="far fa-copyright"></i>
+      2021 Techies Lab ASBL. All rights reserved.
+    </a>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="javascript/prism.js"></script>
+</body>
+</html>
